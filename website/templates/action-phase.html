@@ -1,0 +1,91 @@
+{% extends "game-base.html" %}
+{% block title %}Current Game{% endblock %}
+
+{% block content %}
+{% for game in game_state %}
+
+<!-- Players and Strats --> 
+<section class="bg-dark">
+<div class="row justify-content-between">
+    <div class="col-sm-5">
+        {% for player in players %}  <!-- Inserts rows of players in initiative order -->
+                <div class="row mx-1 p-1 rounded border border-3 border-light border-opacity-50">
+                    <div class="col-2 d-flex bg-{{ player.color }} justify-content-center bg-opacity-75 bg-gradient border border-2 border-light border-opacity-75 rounded p-2">
+                        <img class="img-fluid" src="{{'/static/races/' + player.race + '.png'}}" width="50">
+                    </div>
+                    <div class="col-4 d-flex align-items-center bg-{{ player.color }} bg-opacity-25 bg-gradient border border-2 border-light border-opacity-75 text-light rounded ps-3">
+                        <h3 class="fw-light">{{player.name}}</h3>
+                    </div>
+                    {% for strat in player.strats %}
+                        <div class="col-2 d-flex bg-{{ strat.name }} justify-content-center bg-opacity-75 bg-gradient border border-2 border-light border-opacity-75 rounded p-1">
+                                {% if strat.active is true %}
+                                        <img class="img-fluid" src="{{'/static/strats/' + strat.name + '.png'}}" width="40">
+                                {% elif strat.active is false %}
+                                        <img class="img-fluid" src="{{'/static/strats/' + strat.name + 'off.png'}}" width="40">
+                                {% endif %}   
+                        </div>
+                    {% endfor %}
+                    <div class="col-2 d-flex align-items-center justify-content-center bg-opacity-75 border border-2 border-light border-opacity-75 rounded p-1">
+                    {% if player.speaker == 1 %}
+                        <img class="img-fluid w-75" src="../static/speaker.webp">
+                    {% endif %}
+                    </div>
+                    <div class="col-2 d-flex align-items-center justify-content-center bg-opacity-75 border border-2 border-light border-opacity-75 rounded p-1">
+                            {% if player.initiative == game.player %}
+                                <img class="img-fluid" src="../static/mecatol.webp" width="65">
+                            {% endif %}
+                    </div>                
+                </div>
+        {% endfor %}
+
+            <div class="row mx-1 my-2 justify-content-center rounded border border-2 border-light">
+            <form method="post">
+                <div class="col">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col">
+                        <button type="submit" class="btn btn-lg btn-primary my-1" name="game_action" value="next_player">Next Player</button>
+                        <button type="submit" class="btn btn-lg btn-primary my-1" name="game_action" value="next_phase">Next Phase</button>
+                        <button type="submit" class="btn btn-lg btn-primary my-1" name="game_action" value="use_strategy">Use Strategy</button>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                    <div class=" d-flex col mb-auto">
+                        <div class="input-group m-1 mb-2">
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                                <select class="form-select" name="change_speaker" id="inputGroupSelect03">
+                                    <option selected value=''>Change Speaker</option>
+                                    {% for player in game.players %}
+                                        <option value="{{player.seat}}">{{player.name}}</option>
+                                    {% endfor %}
+                                </select>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </form>
+            </div>
+    </div>
+
+    
+    
+    <div class="col-sm-6">
+        <div class="row rounded justify-content-center border border-3 border-light border-opacity-50 mx-1">
+            {% for strat in strats %}
+                {% if strat.active is true %}
+                    <div class="col-4 d-flex justify-content-end">
+                        <img src="{{'/static/strats/' + strat.name + '.png'}}" alt="{{name}}" class="img-fluid m-1" width="180">
+                    </div>
+                {% elif strat.active is false %}
+                    <div class="col-4 d-flex justify-content-end">
+                        <img src="{{'/static/strats/' + strat.name + 'off.png'}}" alt="{{name}}" class="img-fluid m-1" width="180">
+                    </div>
+                {% endif %}
+            {% endfor%}
+            </div>
+         
+        </div>
+    </div>
+
+</section>      
+{% endfor %}
+{% endblock %}

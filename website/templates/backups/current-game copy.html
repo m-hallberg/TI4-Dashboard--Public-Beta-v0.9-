@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Current Game{% endblock %}
+
+{% block content %}
+<div class="row rounded p-1 border border-dark border-3 border-opacity-25 shadow m-1">
+    <div class="col-9 d-flex justify-content-start rounded bg-primary bg-opacity-75 text-dark">
+    <h1 class="px-3 display-1">Current Game</h1>
+    </div>
+    <div class="col-3 p-3 rounded bg-secondary bg-opacity-50 ext-dark fw-bolder">
+        <div class="display-3">
+        <label id="hours">00</label>:<label id="mins">00</label>:<label id="secs">00</label>
+        <script>
+            var hoursLabel = document.getElementById("hours");
+            var minsLabel = document.getElementById("mins");
+            var secsLabel = document.getElementById("secs");
+            var start = {{game_state['start']}}
+            setInterval(timer, 1000);
+
+            function timer() {
+                var endRaw = new Date()
+                var end = endRaw.getTime()
+                var duration = end - start
+                var milliseconds = Math.floor((duration % 1000) / 100),
+                seconds = Math.floor((duration / 1000) % 60),
+                minutes = Math.floor((duration / (1000 * 60)) % 60),
+                hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+                hours = (hours < 10) ? "0" + hours : hours;
+                minutes = (minutes < 10) ? "0" + minutes : minutes;
+                seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+                hoursLabel.innerHTML = hours
+                minsLabel.innerHTML = minutes
+                secsLabel.innerHTML = seconds 
+
+                console.log(hours, minutes, seconds)
+
+            }
+        </script>
+        </div>
+    </div>
+</div>
+{% for player in game_players %}
+    <div class="row m-1 pb-1">
+        <div class="col-1 d-flex bg-{{ player.color }} justify-content-center bg-opacity-75 bg-gradient rounded p-2">
+            <img class="img-fluid" src="{{'/static/races/' + player.race + '.png'}}" width="90">
+        </div>
+        <div class="col-3 d-flex align-items-center bg-{{ player.color }} bg-opacity-25 bg-gradient text-light rounded ps-3">
+            <h3 class="display-5">{{player.name}}</h3>
+        </div>
+        <div class="col-1 d-flex bg-{{ player.color }} justify-content-center bg-opacity-75 bg-gradient rounded p-1">
+            {% if strat_state[player.strat] is true %}
+                    <img class="img-fluid" src="{{'/static/strats/' + player.strat + '.png'}}" width="75">
+            {% endif %}
+            {% if strat_state[player.strat] is false %}
+                    <img class="img-fluid" src="{{'/static/strats/' + player.strat + 'off.png'}}" width="75">
+            {% endif %}            
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}

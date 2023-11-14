@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block title %}Current Game{% endblock %}
+
+{% block content %}
+
+<!-- Title Bar -->
+
+<section class="bg-secondary">
+<div class="row rounded p-1 shadow">
+    <div class="col-8 d-flex justify-content-start rounded bg-primary bg-opacity-75 text-dark">
+    <h1 class="px-3 display-1">Current Game</h1>
+    </div>
+    <div class="d-flex col-4 p-3 rounded bg-light bg-opacity-50 ext-dark fw-bolder">
+        <div class="display-3 ms-auto">
+        <label id="hours">00</label>:<label id="mins">00</label>:<label id="secs">00</label>
+        <script>
+            var hoursLabel = document.getElementById("hours");
+            var minsLabel = document.getElementById("mins");
+            var secsLabel = document.getElementById("secs");
+            var start = {{game_state['start']}}
+            setInterval(timer, 1000);
+
+            function timer() {
+                var endRaw = new Date()
+                var end = endRaw.getTime()
+                var duration = end - start
+                var milliseconds = Math.floor((duration % 1000) / 100),
+                seconds = Math.floor((duration / 1000) % 60),
+                minutes = Math.floor((duration / (1000 * 60)) % 60),
+                hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+                hours = (hours < 10) ? "0" + hours : hours;
+                minutes = (minutes < 10) ? "0" + minutes : minutes;
+                seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+                hoursLabel.innerHTML = hours
+                minsLabel.innerHTML = minutes
+                secsLabel.innerHTML = seconds 
+
+                console.log(hours, minutes, seconds)
+
+            }
+        </script>
+        </div>
+    </div>
+</div>
+</section>
+
+
+<!-- Players and Strats --> 
+
+<section class="bg-secondary">
+<div class="row justify-content-between">
+    <div class="col-5">
+        {% for player in game_players %}
+            <div class="row mx-1 p-1 rounded border border-3 border-dark border-opacity-50">
+                <div class="col-2 d-flex bg-{{ player.color }} justify-content-center bg-opacity-75 bg-gradient rounded p-2">
+                    <img class="img-fluid" src="{{'/static/races/' + player.race + '.png'}}" width="50">
+                </div>
+                <div class="col-4 d-flex align-items-center bg-{{ player.color }} bg-opacity-25 bg-gradient text-light rounded ps-3">
+                    <h3 class="fw-light">{{player.name}}</h3>
+                </div>
+                <div class="col-2 d-flex bg-{{ player.color }} justify-content-center bg-opacity-75 bg-gradient rounded p-1">
+                    {% if strat_state[player.strat] is true %}
+                            <img class="img-fluid" src="{{'/static/strats/' + player.strat + '.png'}}" width="40">
+                    {% endif %}
+                    {% if strat_state[player.strat] is false %}
+                            <img class="img-fluid" src="{{'/static/strats/' + player.strat + 'off.png'}}" width="40">
+                    {% endif %}            
+                </div>
+                <div class="col-2 d-flex align-items-center justify-content-center bg-opacity-75 rounded p-1">
+                {% if player.speaker == 1 %}
+                    <img class="img-fluid w-75" src="../static/speaker.webp">
+                {% endif %}
+                </div>
+                <div class="col-2 d-flex align-items-center justify-content-center bg-opacity-75 rounded p-1">
+                {% if strat_players[player.seat] == game_state.player %}
+                    <img class="img-fluid" src="../static/mecatol.webp" width="65">
+                {% endif %}
+                </div>                
+
+            
+            </div>
+            
+        {% endfor %}
+
+            <div class="row mx-1 my-2 justify-content-center rounded border border-2 border-dark">
+            <form method="post">
+                <div class="col">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col">
+                        <button type="submit" class="btn btn-lg btn-primary my-1" name="game_action" value="next_player">Next Player</button>
+                        <button type="submit" class="btn btn-lg btn-primary my-1" name="game_action" value="next_phase">Next Phase</button>
+                        <button type="submit" class="btn btn-lg btn-primary my-1" name="game_action" value="use_strategy">Use Strategy</button>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                    <div class=" d-flex col mb-auto">
+                        <div class="input-group m-1 mb-2">
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                                <select class="form-select" name="change_speaker" id="inputGroupSelect03">
+                                    <option selected value=''>Change Speaker</option>
+                                    {% for player in game_players %}
+                                        <option value="{{player.seat}}">{{player.name}}</option>
+                                    {% endfor %}
+                                </select>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </form>
+            </div>
+    </div>
+
+    
+    
+    <div class="col-sm-6">
+        <div class="row rounded justify-content-center border border-3 border-dark border-opacity-50 mx-1">
+            {% for name, active in strat_state.items() %}
+                {% if active is true %}
+                    <div class="col-4 d-flex justify-content-end">
+                        <img src="{{'/static/strats/' + name + '.png'}}" alt="{{name}}" class="img-fluid m-1" width="180">
+                    </div>
+                {% elif active is false %}
+                    <div class="col-4 d-flex justify-content-end">
+                        <img src="{{'/static/strats/' + name + 'off.png'}}" alt="{{name}}" class="img-fluid m-1" width="180">
+                    </div>
+                {% endif %}
+            {% endfor%}
+            </div>
+         
+        </div>
+    </div>
+
+</section>      
+{% endblock %}

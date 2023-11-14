@@ -1,0 +1,198 @@
+{% extends "game-base.html" %}
+{% block title %}Current Game{% endblock %}
+
+{% block content %}
+{% for game in game_state %}
+
+<!-- Players and Strats --> 
+
+<section class="bg-dark">
+<div class="row justify-content-between">
+    <div class="col-sm-4">
+        {% for player in players %}
+            <div class="row mx-1 p-1 rounded border border-3 border-light border-opacity-50">
+                <div class="col-2 d-flex bg-{{ player.color }} justify-content-center bg-opacity-75 bg-gradient border border-2 border-light border-opacity-75 rounded p-2">
+                    <img class="img-fluid" src="{{'/static/races/' + player.race + '.png'}}" width="50">
+                </div>
+                <div class="col-6 d-flex align-items-center bg-{{ player.color }} bg-opacity-25 bg-gradient border border-2 border-light border-opacity-75 text-light rounded ps-3">
+                    <h3 class="fw-light">{{player.name}}</h3>
+                </div>
+                <div class="col-2 d-flex align-items-center justify-content-center bg-opacity-75 border border-2 border-light border-opacity-75 rounded p-1">
+                {% if player.speaker == 1 %}
+                    <img class="img-fluid w-75" src="../static/speaker.webp">
+                {% endif %}
+                </div>
+                <div class="col-2 d-flex align-items-center justify-content-center bg-opacity-75 border border-2 border-light border-opacity-75 rounded p-1">
+                {% if player.speaker == game.player %}
+                    <img class="img-fluid" src="../static/mecatol.webp" width="65">
+                {% endif %}
+                </div>                
+            </div>
+        {% endfor %}
+
+       
+        {% for agenda in agendas %}
+            <form method="post">
+            {% if agenda.agenda_type == 'for_against' and agenda.id == game.agenda %}
+            <div class="row border border-3 border-light border-opacity-50 rounded p-1 m-1">
+                <div class="col text-light">
+                    <div class="row">
+                        <div class="col d-flex p-2 bg-dark bg-opacity-75 border border-1 border-light border-opacity-25 justify-content-evenly">
+                            <div class="btn-group" role="group">
+                                <input type="radio" class="btn-check" id="vbtn-radio1" name="player_selection" value="for" autocomplete="off">
+                                <label class="btn btn-lg btn-outline-green" for="vbtn-radio1">For</label>
+                                <input type="radio" class="btn-check" id="vbtn-radio2" name="player_selection" value="against" autocomplete="off">
+                                <label class="btn btn-lg btn-outline-danger" for="vbtn-radio2">Against</label>
+                            </div>
+                            <div class="input-group">
+                                <button class="btn btn-lg btn-outline-secondary" type="submit" id="agenda_action" name="agenda_action" value="submit_votes">Submit</button>
+                                <input type="text" class="form-control" name="player_votes" placeholder="Votes">
+                            </div>
+                        </div>
+                    </div>   
+                </div>
+            </div>
+            {% elif agenda.agenda_type == 'elect_player' and agenda.id == game.agenda %}
+            <div class="row border border-3 border-light border-opacity-50 rounded p-1 m-1">
+                <div class="col text-light">
+                    <div class="row">
+                        <div class="col d-flex p-2 bg-dark bg-opacity-75 border border-1 border-light border-opacity-25 justify-content-evenly">
+                            <div class="btn-group" role="group">
+                                {% for player in players %}                                
+                                <input type="radio" class="btn-check" name="player_selection" id="btn-{{player.name}}" value="{{player.name}}" autocomplete="off">
+                                <label class="btn btn-sm btn-outline-{{player.color}}" for="btn-{{player.name}}">{{player.name}}</label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col d-flex p-2 bg-dark bg-opacity-75 border border-1 border-light border-opacity-25 justify-content-evenly">
+                            <div class="input-group">
+                                <button class="btn btn-sm btn-outline-secondary" type="submit" id="agenda_action" name="agenda_action" value="submit_votes">Submit</button>
+                                <input type="text" class="form-control" placeholder="Votes" name="player_votes" id="player_votes">
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+            </div>
+            {% elif agenda.agenda_type == 'elect_planet' and agenda.id == game.agenda %}
+            <div class="row border border-3 border-light border-opacity-50 rounded p-1 m-1">
+                <div class="col text-light">
+                    <div class="row">
+                        <div class="col-sm-6 d-flex p-2 bg-dark bg-opacity-75 border border-1 border-light border-opacity-25 justify-content-evenly">
+                            <select class="form-select form-select-sm" id="select_planet" name="player_selection">
+                                <option selected>Select a Planet</option>
+                                {% for agenda in agendas %}
+                                    {% for nomination in agenda.nominations %}
+                                        {% if agenda.id == game.agenda %}
+                                            <option value="{{ nomination.title }}">{{ nomination.title }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-sm-6 d-flex p-2 bg-dark bg-opacity-75 border border-1 border-light border-opacity-25 justify-content-evenly">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="New Planet" name="new_planet" id="new_planet">
+                                <button class="btn btn-sm btn-outline-secondary" type="submit" id="agenda_action" name="agenda_action" value="new_planet_submit">Submit</button>
+                            </div>
+                        </div>
+                        <div class="col d-flex p-2 bg-dark bg-opacity-75 border border-1 border-light border-opacity-25 justify-content-evenly">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Votes" name="player_votes" id="player_votes">
+                                <button class="btn btn-sm btn-outline-secondary" type="submit" id="agenda_action" name="agenda_action" value="submit_votes">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+            </div>
+            {% endif %}
+                
+            </form>
+        {% endfor %}
+
+        <div class="row mx-1 my-2 justify-content-center rounded border border-2 border-light">
+        <form method="post">
+            <div class="col">
+                <div class="row">
+                    <div class="col d-flex p-2 bg-dark bg-opacity-75 border border-1 border-light border-opacity-25 justify-content-evenly">
+                    <button type="submit" class="btn btn-lg btn-primary my-1" name="game_action" value="next_player">Next Player</button>
+                    <button type="submit" class="btn btn-lg btn-primary my-1" name="game_action" value="next_phase">Next Phase</button>
+                    <!-- <button type="submit" class="btn btn-lg btn-primary my-1" name="submit_votes" value="submit_votes">Submit Votes</button> -->
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <div class="d-flex col mb-auto">
+                        <div class="input-group m-1 mb-2">
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                                <select class="form-select" name="change_speaker" id="inputGroupSelect03">
+                                    <option selected value=''>Change Speaker</option>
+                                    {% for player in players %}
+                                        <option value="{{player.seat}}">{{player.name}}</option>
+                                    {% endfor %}
+                                </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        </div>
+
+    </div>
+
+        
+        
+
+        
+
+
+    
+    <!-- Right major column used for voting function -->
+    <div class="col-sm-8">
+        {% for agenda in agendas %}
+        
+        <div class="row border border-3 border-light border-opacity-50 rounded p-1 m-1">
+            <div class="col text-light">
+                <div class="row">
+                    <div class="col p-2 bg-primary bg-opacity-75 border border-1 border-light border-opacity-25">
+                        <h3 class="fw-light">Agenda 1: <span class="display-6">{{agenda.agenda_type}}</span></h3>
+                    </div>
+                </div>
+                <div class="row">
+                    {% for player in players%}
+                    <div class="col col-sm-6 bg bg-{{player.color}} bg-gradient bg-opacity-25 p-1 border border-1 border-light border-opacity-25">
+                        <p class="fw-light">{{player.name}}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="row">
+                    {% for nomination in agenda.nominations %}
+                    <div class="col p-2 bg-primary bg-opacity-75 border border-1 border-light border-opacity-25">
+                    <h6 class="fw-light">{{nomination.title}}: {{nomination.total}} {% if agenda.winner == nomination.id %} <span class="h5 ms-3 text-warning">WINNER</span> {% endif %} </h6>
+                    </div>
+                    {% endfor %}
+                </div>     
+            </div>
+        </div>
+        {% endfor %}
+        
+        <form method="post">
+        <div class="row border border-3 border-light border-opacity-50 rounded p-1 m-1">
+            <div class="col text-light">
+                <div class="row">
+                    <div class="col-sm-3 p-2 bg-primary bg-opacity-75 border border-1 border-light border-opacity-25">
+                        <h3 class="fw-light">New Agenda:</h3>
+                    </div>
+                    <div class="col d-flex p-2 bg-dark bg-opacity-75 border border-1 border-light border-opacity-25 justify-content-evenly">
+                        <button type="submit" class="btn btn-md btn-primary my-1" name="new_agenda" value="for_against">For/Against</button>
+                        <button type="submit" class="btn btn-md btn-primary my-1" name="new_agenda" value="elect_player">Elect Player</button>
+                        <button type="submit" class="btn btn-md btn-primary my-1" name="new_agenda" value="elect_planet">Elect Planet</button>
+                    </div>
+                </div>   
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+</section> 
+     
+{% endfor %}
+{% endblock %}

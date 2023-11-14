@@ -1,0 +1,653 @@
+{% extends "base.html" %}
+{% block title %}Game Creation{% endblock %}
+
+{% block content%}
+
+<div class="container-fluid text-light">
+<form method = "post">
+    <div class="row bg-primary justify-content-center mt-1">
+        <div class="col">
+            <div class="d-flex p-2 justify-content-center">
+                <h2>Game Creation</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-dark px-0">
+        <div class="col-2 m-2">
+            <div class="bg-dark">
+                <label class="form-label">Player 1</label>
+                <input class="form-control mb-3" id="playerName" name="p1name">
+            </div>
+        </div>
+        <div class="col-1 m-2">
+            <div class="bg-dark">
+                <label class="form-label">Seat #</label>
+                <input class="form-control mb-3" id="seat" name="p1seat">
+            </div>
+        </div>
+        <div class="col-3  m-2">
+            <div class="bg-dark">
+                <label class="form-label">Race</label>
+                <select class="form-select" id="race" name="p1race">
+                    <option value=""></option>
+                    <option value="arborec">The Arborec</option>
+                    <option value="barony">The Barony of Letnev</option>
+                    <option value="saar">The Clan of Saar</option>
+                    <option value="muaat">The Embers of Muaat</option>
+                    <option value="hacan">The Emirates of Hacan</option>
+                    <option value="sol">The Federation of Sol</option>
+                    <option value="creuss">The Ghosts of Creuss</option>
+                    <option value="l1z1x">The L1Z1X Mindnet</option>
+                    <option value="mentak">The Mentak Coalition</option>
+                    <option value="naalu">The Naalu Collective</option>
+                    <option value="nekro">The Nekro Virus</option>
+                    <option value="sardakk">Sardakk N'orr</option>
+                    <option value="jolnar">The Universities of Jol-Nar</option>
+                    <option value="winnu">The Winnu</option>
+                    <option value="xxcha">The Xxcha Kingdom</option>
+                    <option value="yin">The Yin Brotherhood</option>
+                    <option value="yssaril">The Yssaril Tribes</option>
+                    <option value="argent">The Argent Flight</option>
+                    <option value="empyrean">The Empyrean</option>
+                    <option value="mahact">The Mahact Gene-Sorcerers</option>
+                    <option value="naaz">The Naaz-Rokha Alliance</option>
+                    <option value="nomad">The Nomad</option>
+                    <option value="titans">The Titans of Ul</option>
+                    <option value="cabal">The Vuil'Raith Cabal</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-2  m-2">
+            <div class="bg-dark">
+                <label for="color" class="form-label">Color</label>
+                <select class="form-select" id="color" name="p1color">
+                    <option value=""></option>
+                    <option style="color: red;" value="red">Red</option>
+                    <option style="color: black;" value="black">Black</option>
+                    <option style="color: blue;" value="blue">Blue</option>
+                    <option style="color: green;" value="green">Green</option>
+                    <option style="color: yellow;" value="yellow">Yellow</option>
+                    <option style="color: orange;" value="orange">Orange</option>
+                    <option style="color: pink;" value="pink">Pink</option>
+                    <option style="color: purple;" value="purple">Purple</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-2  m-2">
+            <div class="bg-dark">
+                <label for="p1strat" class="form-label">Starting Strategy</label>
+                <select class="form-select" id="p1strat" name="p1strat">
+                    <option value=""></option>
+                    <option class="text-primary" value="1leadership">Leadership</option>
+                    <option class="text-diplomacy" value="2diplomacy">Diplomacy</option>
+                    <option class="text-politics" value="3politics">Politics</option>
+                    <option class="text-construction" value="4construction">Construction</option>
+                    <option class="text-trade" value="5trade">Trade</option>
+                    <option class="text-warfare" value="6warfare">Warfare</option>
+                    <option class="text-technology" value="7technology">Technology</option>
+                    <option class="text-imperial" value="8imperial">Imperial</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-dark px-0">
+        <div class="col-2  m-2">
+            <div class="bg-dark">
+                <label class="form-label">Player 2</label>
+                <input class="form-control mb-3" id="playerName" name="p2name">
+            </div>
+        </div>
+        <div class="col-1  m-2">
+            <div class="bg-dark">
+                <label class="form-label">Seat #</label>
+                <input class="form-control mb-3" id="seat" name="p2seat">
+            </div>
+        </div>
+        <div class="col-3  m-2">
+            <div class="bg-dark">
+                <label class="form-label">Race</label>
+                <select class="form-select" id="race" name="p2race">
+                    <option value=""></option>
+                    <option value="arborec">The Arborec</option>
+                    <option value="barony">The Barony of Letnev</option>
+                    <option value="saar">The Clan of Saar</option>
+                    <option value="muaat">The Embers of Muaat</option>
+                    <option value="hacan">The Emirates of Hacan</option>
+                    <option value="sol">The Federation of Sol</option>
+                    <option value="creuss">The Ghosts of Creuss</option>
+                    <option value="l1z1x">The L1Z1X Mindnet</option>
+                    <option value="mentak">The Mentak Coalition</option>
+                    <option value="naalu">The Naalu Collective</option>
+                    <option value="nekro">The Nekro Virus</option>
+                    <option value="sardakk">Sardakk N'orr</option>
+                    <option value="jolnar">The Universities of Jol-Nar</option>
+                    <option value="winnu">The Winnu</option>
+                    <option value="xxcha">The Xxcha Kingdom</option>
+                    <option value="yin">The Yin Brotherhood</option>
+                    <option value="yssaril">The Yssaril Tribes</option>
+                    <option value="argent">The Argent Flight</option>
+                    <option value="empyrean">The Empyrean</option>
+                    <option value="mahact">The Mahact Gene-Sorcerers</option>
+                    <option value="naaz">The Naaz-Rokha Alliance</option>
+                    <option value="nomad">The Nomad</option>
+                    <option value="titans">The Titans of Ul</option>
+                    <option value="cabal">The Vuil'Raith Cabal</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-2  m-2">
+            <div class="bg-dark">
+                <label for="color" class="form-label">Color</label>
+                <select class="form-select" id="color" name="p2color">
+                    <option value=""></option>
+                    <option style="color: red;" value="red">Red</option>
+                    <option style="color: black;" value="black">Black</option>
+                    <option style="color: blue;" value="blue">Blue</option>
+                    <option style="color: green;" value="green">Green</option>
+                    <option style="color: yellow;" value="yellow">Yellow</option>
+                    <option style="color: orange;" value="orange">Orange</option>
+                    <option style="color: pink;" value="pink">Pink</option>
+                    <option style="color: purple;" value="purple">Purple</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-2  m-2">
+            <div class="bg-dark">
+                <label for="p2strat" class="form-label">Starting Strategy</label>
+                <select class="form-select" id="p2strat" name="p2strat">
+                    <option value=""></option>
+                    <option class="text-primary" value="1leadership">Leadership</option>
+                    <option class="text-diplomacy" value="2diplomacy">Diplomacy</option>
+                    <option class="text-politics" value="3politics">Politics</option>
+                    <option class="text-construction" value="4construction">Construction</option>
+                    <option class="text-trade" value="5trade">Trade</option>
+                    <option class="text-warfare" value="6warfare">Warfare</option>
+                    <option class="text-technology" value="7technology">Technology</option>
+                    <option class="text-imperial" value="8imperial">Imperial</option>
+                </select>
+            </div>
+        </div>
+        
+    </div>
+    <div class="row bg-dark px-0">
+        <div class="col-2  m-2">
+            <div class="bg-dark">
+                <label class="form-label">Player 3</label>
+                <input class="form-control mb-3" id="playerName" name="p3name">
+            </div>
+        </div>
+        <div class="col-1  m-2">
+            <div class="bg-dark">
+                <label class="form-label">Seat #</label>
+                <input class="form-control mb-3" id="seat" name="p3seat">
+            </div>
+        </div>
+        <div class="col-3  m-2">
+            <div class="bg-dark">
+                <label class="form-label">Race</label>
+                <select class="form-select" id="race" name="p3race">
+                    <option value=""></option>
+                    <option value="arborec">The Arborec</option>
+                    <option value="barony">The Barony of Letnev</option>
+                    <option value="saar">The Clan of Saar</option>
+                    <option value="muaat">The Embers of Muaat</option>
+                    <option value="hacan">The Emirates of Hacan</option>
+                    <option value="sol">The Federation of Sol</option>
+                    <option value="creuss">The Ghosts of Creuss</option>
+                    <option value="l1z1x">The L1Z1X Mindnet</option>
+                    <option value="mentak">The Mentak Coalition</option>
+                    <option value="naalu">The Naalu Collective</option>
+                    <option value="nekro">The Nekro Virus</option>
+                    <option value="sardakk">Sardakk N'orr</option>
+                    <option value="jolnar">The Universities of Jol-Nar</option>
+                    <option value="winnu">The Winnu</option>
+                    <option value="xxcha">The Xxcha Kingdom</option>
+                    <option value="yin">The Yin Brotherhood</option>
+                    <option value="yssaril">The Yssaril Tribes</option>
+                    <option value="argent">The Argent Flight</option>
+                    <option value="empyrean">The Empyrean</option>
+                    <option value="mahact">The Mahact Gene-Sorcerers</option>
+                    <option value="naaz">The Naaz-Rokha Alliance</option>
+                    <option value="nomad">The Nomad</option>
+                    <option value="titans">The Titans of Ul</option>
+                    <option value="cabal">The Vuil'Raith Cabal</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-2  m-2">
+            <div class="bg-dark">
+                <label for="color" class="form-label">Color</label>
+                <select class="form-select" id="color" name="p3color">
+                    <option value=""></option>
+                    <option style="color: red;" value="red">Red</option>
+                    <option style="color: black;" value="black">Black</option>
+                    <option style="color: blue;" value="blue">Blue</option>
+                    <option style="color: green;" value="green">Green</option>
+                    <option style="color: yellow;" value="yellow">Yellow</option>
+                    <option style="color: orange;" value="orange">Orange</option>
+                    <option style="color: pink;" value="pink">Pink</option>
+                    <option style="color: purple;" value="purple">Purple</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-2  m-2">
+            <div class="bg-dark">
+                <label for="p3strat" class="form-label">Starting Strategy</label>
+                <select class="form-select" id="p3strat" name="p3strat">
+                    <option value=""></option>
+                    <option class="text-primary" value="1leadership">Leadership</option>
+                    <option class="text-diplomacy" value="2diplomacy">Diplomacy</option>
+                    <option class="text-politics" value="3politics">Politics</option>
+                    <option class="text-construction" value="4construction">Construction</option>
+                    <option class="text-trade" value="5trade">Trade</option>
+                    <option class="text-warfare" value="6warfare">Warfare</option>
+                    <option class="text-technology" value="7technology">Technology</option>
+                    <option class="text-imperial" value="8imperial">Imperial</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-dark px-0">
+        <div class="col-2  m-2">
+            <div class="bg-dark">
+                <label class="form-label">Player 4</label>
+                <input class="form-control mb-3" id="playerName" name="p4name">
+            </div>
+        </div>
+        <div class="col-1  m-2">
+            <div class="bg-dark">
+                <label class="form-label">Seat #</label>
+                <input class="form-control mb-3" id="seat" name="p4seat">
+            </div>
+        </div>
+        <div class="col-3  m-2">
+            <div class="bg-dark">
+                <label class="form-label">Race</label>
+                <select class="form-select" id="race" name="p4race">
+                    <option value=""></option>
+                    <option value="arborec">The Arborec</option>
+                    <option value="barony">The Barony of Letnev</option>
+                    <option value="saar">The Clan of Saar</option>
+                    <option value="muaat">The Embers of Muaat</option>
+                    <option value="hacan">The Emirates of Hacan</option>
+                    <option value="sol">The Federation of Sol</option>
+                    <option value="creuss">The Ghosts of Creuss</option>
+                    <option value="l1z1x">The L1Z1X Mindnet</option>
+                    <option value="mentak">The Mentak Coalition</option>
+                    <option value="naalu">The Naalu Collective</option>
+                    <option value="nekro">The Nekro Virus</option>
+                    <option value="sardakk">Sardakk N'orr</option>
+                    <option value="jolnar">The Universities of Jol-Nar</option>
+                    <option value="winnu">The Winnu</option>
+                    <option value="xxcha">The Xxcha Kingdom</option>
+                    <option value="yin">The Yin Brotherhood</option>
+                    <option value="yssaril">The Yssaril Tribes</option>
+                    <option value="argent">The Argent Flight</option>
+                    <option value="empyrean">The Empyrean</option>
+                    <option value="mahact">The Mahact Gene-Sorcerers</option>
+                    <option value="naaz">The Naaz-Rokha Alliance</option>
+                    <option value="nomad">The Nomad</option>
+                    <option value="titans">The Titans of Ul</option>
+                    <option value="cabal">The Vuil'Raith Cabal</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-2  m-2">
+            <div class="bg-dark">
+                <label for="color" class="form-label">Color</label>
+                <select class="form-select" id="color" name="p4color">
+                    <option value=""></option>
+                    <option style="color: red;" value="red">Red</option>
+                    <option style="color: black;" value="black">Black</option>
+                    <option style="color: blue;" value="blue">Blue</option>
+                    <option style="color: green;" value="green">Green</option>
+                    <option style="color: yellow;" value="yellow">Yellow</option>
+                    <option style="color: orange;" value="orange">Orange</option>
+                    <option style="color: pink;" value="pink">Pink</option>
+                    <option style="color: purple;" value="purple">Purple</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-2  m-2">
+            <div class="bg-dark">
+                <label for="p4strat" class="form-label">Starting Strategy</label>
+                <select class="form-select" id="p4strat" name="p4strat">
+                    <option value=""></option>
+                    <option class="text-primary" value="1leadership">Leadership</option>
+                    <option class="text-diplomacy" value="2diplomacy">Diplomacy</option>
+                    <option class="text-politics" value="3politics">Politics</option>
+                    <option class="text-construction" value="4construction">Construction</option>
+                    <option class="text-trade" value="5trade">Trade</option>
+                    <option class="text-warfare" value="6warfare">Warfare</option>
+                    <option class="text-technology" value="7technology">Technology</option>
+                    <option class="text-imperial" value="8imperial">Imperial</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-dark px-0">
+        <div class="col-2  m-2">
+            <div class="bg-dark">
+                <label class="form-label">Player 5</label>
+                <input class="form-control mb-3" id="playerName" name="p5name">
+            </div>
+        </div>
+        <div class="col-1  m-2">
+            <div class="bg-dark">
+                <label class="form-label">Seat #</label>
+                <input class="form-control mb-3" id="seat" name="p5seat">
+            </div>
+        </div>
+        <div class="col-3  m-2">
+            <div class="bg-dark">
+                <label class="form-label">Race</label>
+                <select class="form-select" id="race" name="p5race">
+                    <option value=""></option>
+                    <option value="arborec">The Arborec</option>
+                    <option value="barony">The Barony of Letnev</option>
+                    <option value="saar">The Clan of Saar</option>
+                    <option value="muaat">The Embers of Muaat</option>
+                    <option value="hacan">The Emirates of Hacan</option>
+                    <option value="sol">The Federation of Sol</option>
+                    <option value="creuss">The Ghosts of Creuss</option>
+                    <option value="l1z1x">The L1Z1X Mindnet</option>
+                    <option value="mentak">The Mentak Coalition</option>
+                    <option value="naalu">The Naalu Collective</option>
+                    <option value="nekro">The Nekro Virus</option>
+                    <option value="sardakk">Sardakk N'orr</option>
+                    <option value="jolnar">The Universities of Jol-Nar</option>
+                    <option value="winnu">The Winnu</option>
+                    <option value="xxcha">The Xxcha Kingdom</option>
+                    <option value="yin">The Yin Brotherhood</option>
+                    <option value="yssaril">The Yssaril Tribes</option>
+                    <option value="argent">The Argent Flight</option>
+                    <option value="empyrean">The Empyrean</option>
+                    <option value="mahact">The Mahact Gene-Sorcerers</option>
+                    <option value="naaz">The Naaz-Rokha Alliance</option>
+                    <option value="nomad">The Nomad</option>
+                    <option value="titans">The Titans of Ul</option>
+                    <option value="cabal">The Vuil'Raith Cabal</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-2  m-2">
+            <div class="bg-dark">
+                <label for="color" class="form-label">Color</label>
+                <select class="form-select" id="color" name="p5color">
+                    <option value=""></option>
+                    <option style="color: red;" value="red">Red</option>
+                    <option style="color: black;" value="black">Black</option>
+                    <option style="color: blue;" value="blue">Blue</option>
+                    <option style="color: green;" value="green">Green</option>
+                    <option style="color: yellow;" value="yellow">Yellow</option>
+                    <option style="color: orange;" value="orange">Orange</option>
+                    <option style="color: pink;" value="pink">Pink</option>
+                    <option style="color: purple;" value="purple">Purple</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-2  m-2">
+            <div class="bg-dark">
+                <label for="p5strat" class="form-label">Starting Strategy</label>
+                <select class="form-select" id="p5strat" name="p5strat">
+                    <option value=""></option>
+                    <option class="text-primary" value="1leadership">Leadership</option>
+                    <option class="text-diplomacy" value="2diplomacy">Diplomacy</option>
+                    <option class="text-politics" value="3politics">Politics</option>
+                    <option class="text-construction" value="4construction">Construction</option>
+                    <option class="text-trade" value="5trade">Trade</option>
+                    <option class="text-warfare" value="6warfare">Warfare</option>
+                    <option class="text-technology" value="7technology">Technology</option>
+                    <option class="text-imperial" value="8imperial">Imperial</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-dark px-0">
+        <div class="col-2  m-2">
+            <div class="bg-dark">
+                <label class="form-label">Player 6</label>
+                <input class="form-control mb-3" id="playerName" name="p6name">
+            </div>
+        </div>
+        <div class="col-1  m-2">
+            <div class="bg-dark">
+                <label class="form-label">Seat #</label>
+                <input class="form-control mb-3" id="seat" name="p6seat">
+            </div>
+        </div>
+        <div class="col-3  m-2">
+            <div class="bg-dark">
+                <label class="form-label">Race</label>
+                <select class="form-select" id="race" name="p6race">
+                    <option value=""></option>
+                    <option value="arborec">The Arborec</option>
+                    <option value="barony">The Barony of Letnev</option>
+                    <option value="saar">The Clan of Saar</option>
+                    <option value="muaat">The Embers of Muaat</option>
+                    <option value="hacan">The Emirates of Hacan</option>
+                    <option value="sol">The Federation of Sol</option>
+                    <option value="creuss">The Ghosts of Creuss</option>
+                    <option value="l1z1x">The L1Z1X Mindnet</option>
+                    <option value="mentak">The Mentak Coalition</option>
+                    <option value="naalu">The Naalu Collective</option>
+                    <option value="nekro">The Nekro Virus</option>
+                    <option value="sardakk">Sardakk N'orr</option>
+                    <option value="jolnar">The Universities of Jol-Nar</option>
+                    <option value="winnu">The Winnu</option>
+                    <option value="xxcha">The Xxcha Kingdom</option>
+                    <option value="yin">The Yin Brotherhood</option>
+                    <option value="yssaril">The Yssaril Tribes</option>
+                    <option value="argent">The Argent Flight</option>
+                    <option value="empyrean">The Empyrean</option>
+                    <option value="mahact">The Mahact Gene-Sorcerers</option>
+                    <option value="naaz">The Naaz-Rokha Alliance</option>
+                    <option value="nomad">The Nomad</option>
+                    <option value="titans">The Titans of Ul</option>
+                    <option value="cabal">The Vuil'Raith Cabal</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-2  m-2">
+            <div class="bg-dark">
+                <label for="color" class="form-label">Color</label>
+                <select class="form-select" id="color" name="p6color">
+                    <option value=""></option>
+                    <option style="color: red;" value="red">Red</option>
+                    <option style="color: black;" value="black">Black</option>
+                    <option style="color: blue;" value="blue">Blue</option>
+                    <option style="color: green;" value="green">Green</option>
+                    <option style="color: yellow;" value="yellow">Yellow</option>
+                    <option style="color: orange;" value="orange">Orange</option>
+                    <option style="color: pink;" value="pink">Pink</option>
+                    <option style="color: purple;" value="purple">Purple</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-2  m-2">
+            <div class="bg-dark">
+                <label for="p6strat" class="form-label">Starting Strategy</label>
+                <select class="form-select" id="p6strat" name="p6strat">
+                    <option value=""></option>
+                    <option class="text-primary" value="1leadership">Leadership</option>
+                    <option class="text-diplomacy" value="2diplomacy">Diplomacy</option>
+                    <option class="text-politics" value="3politics">Politics</option>
+                    <option class="text-construction" value="4construction">Construction</option>
+                    <option class="text-trade" value="5trade">Trade</option>
+                    <option class="text-warfare" value="6warfare">Warfare</option>
+                    <option class="text-technology" value="7technology">Technology</option>
+                    <option class="text-imperial" value="8imperial">Imperial</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-dark px-0">
+        <div class="col-2  m-2">
+            <div class="bg-dark">
+                <label class="form-label">Player 7</label>
+                <input class="form-control mb-3" id="playerName" name="p7name">
+            </div>
+        </div>
+        <div class="col-1  m-2">
+            <div class="bg-dark">
+                <label class="form-label">Seat #</label>
+                <input class="form-control mb-3" id="seat" name="p7seat">
+            </div>
+        </div>
+        <div class="col-3  m-2">
+            <div class="bg-dark">
+                <label class="form-label">Race</label>
+                <select class="form-select" id="race" name="p7race">
+                    <option value=""></option>
+                    <option value="arborec">The Arborec</option>
+                    <option value="barony">The Barony of Letnev</option>
+                    <option value="saar">The Clan of Saar</option>
+                    <option value="muaat">The Embers of Muaat</option>
+                    <option value="hacan">The Emirates of Hacan</option>
+                    <option value="sol">The Federation of Sol</option>
+                    <option value="creuss">The Ghosts of Creuss</option>
+                    <option value="l1z1x">The L1Z1X Mindnet</option>
+                    <option value="mentak">The Mentak Coalition</option>
+                    <option value="naalu">The Naalu Collective</option>
+                    <option value="nekro">The Nekro Virus</option>
+                    <option value="sardakk">Sardakk N'orr</option>
+                    <option value="jolnar">The Universities of Jol-Nar</option>
+                    <option value="winnu">The Winnu</option>
+                    <option value="xxcha">The Xxcha Kingdom</option>
+                    <option value="yin">The Yin Brotherhood</option>
+                    <option value="yssaril">The Yssaril Tribes</option>
+                    <option value="argent">The Argent Flight</option>
+                    <option value="empyrean">The Empyrean</option>
+                    <option value="mahact">The Mahact Gene-Sorcerers</option>
+                    <option value="naaz">The Naaz-Rokha Alliance</option>
+                    <option value="nomad">The Nomad</option>
+                    <option value="titans">The Titans of Ul</option>
+                    <option value="cabal">The Vuil'Raith Cabal</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-2  m-2">
+            <div class="bg-dark">
+                <label for="color" class="form-label">Color</label>
+                <select class="form-select" id="color" name="p7color">
+                    <option value=""></option>
+                    <option style="color: red;" value="red">Red</option>
+                    <option style="color: black;" value="black">Black</option>
+                    <option style="color: blue;" value="blue">Blue</option>
+                    <option style="color: green;" value="green">Green</option>
+                    <option style="color: yellow;" value="yellow">Yellow</option>
+                    <option style="color: orange;" value="orange">Orange</option>
+                    <option style="color: pink;" value="pink">Pink</option>
+                    <option style="color: purple;" value="purple">Purple</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-2  m-2">
+            <div class="bg-dark">
+                <label for="p7strat" class="form-label">Starting Strategy</label>
+                <select class="form-select" id="p7strat" name="p7strat">
+                    <option value=""></option>
+                    <option class="text-primary" value="1leadership">Leadership</option>
+                    <option class="text-diplomacy" value="2diplomacy">Diplomacy</option>
+                    <option class="text-politics" value="3politics">Politics</option>
+                    <option class="text-construction" value="4construction">Construction</option>
+                    <option class="text-trade" value="5trade">Trade</option>
+                    <option class="text-warfare" value="6warfare">Warfare</option>
+                    <option class="text-technology" value="7technology">Technology</option>
+                    <option class="text-imperial" value="8imperial">Imperial</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-dark px-0">
+        <div class="col-2  m-2">
+            <div class="bg-dark">
+                <label class="form-label">Player 8</label>
+                <input class="form-control mb-3" id="playerName" name="p8name">
+            </div>
+        </div>
+        <div class="col-1  m-2">
+            <div class="bg-dark">
+                <label class="form-label">Seat #</label>
+                <input class="form-control mb-3" id="seat" name="p8seat">
+            </div>
+        </div>
+        <div class="col-3  m-2">
+            <div class="bg-dark">
+                <label class="form-label">Race</label>
+                <select class="form-select" id="race" name="p8race">
+                    <option value=""></option>
+                    <option value="arborec">The Arborec</option>
+                    <option value="barony">The Barony of Letnev</option>
+                    <option value="saar">The Clan of Saar</option>
+                    <option value="muaat">The Embers of Muaat</option>
+                    <option value="hacan">The Emirates of Hacan</option>
+                    <option value="sol">The Federation of Sol</option>
+                    <option value="creuss">The Ghosts of Creuss</option>
+                    <option value="l1z1x">The L1Z1X Mindnet</option>
+                    <option value="mentak">The Mentak Coalition</option>
+                    <option value="naalu">The Naalu Collective</option>
+                    <option value="nekro">The Nekro Virus</option>
+                    <option value="sardakk">Sardakk N'orr</option>
+                    <option value="jolnar">The Universities of Jol-Nar</option>
+                    <option value="winnu">The Winnu</option>
+                    <option value="xxcha">The Xxcha Kingdom</option>
+                    <option value="yin">The Yin Brotherhood</option>
+                    <option value="yssaril">The Yssaril Tribes</option>
+                    <option value="argent">The Argent Flight</option>
+                    <option value="empyrean">The Empyrean</option>
+                    <option value="mahact">The Mahact Gene-Sorcerers</option>
+                    <option value="naaz">The Naaz-Rokha Alliance</option>
+                    <option value="nomad">The Nomad</option>
+                    <option value="titans">The Titans of Ul</option>
+                    <option value="cabal">The Vuil'Raith Cabal</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-2  m-2">
+            <div class="bg-dark">
+                <label for="color" class="form-label">Color</label>
+                <select class="form-select" id="color" name="p8color">
+                    <option value=""></option>
+                    <option style="color: red;" value="red">Red</option>
+                    <option style="color: black;" value="black">Black</option>
+                    <option style="color: blue;" value="blue">Blue</option>
+                    <option style="color: green;" value="green">Green</option>
+                    <option style="color: yellow;" value="yellow">Yellow</option>
+                    <option style="color: orange;" value="orange">Orange</option>
+                    <option style="color: pink;" value="pink">Pink</option>
+                    <option style="color: purple;" value="purple">Purple</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-2  m-2">
+            <div class="bg-dark">
+                <label for="p8strat" class="form-label">Starting Strategy</label>
+                <select class="form-select" id="p8strat" name="p8strat">
+                    <option value=""></option>
+                    <option class="text-primary" value="1leadership">Leadership</option>
+                    <option class="text-diplomacy" value="2diplomacy">Diplomacy</option>
+                    <option class="text-politics" value="3politics">Politics</option>
+                    <option class="text-construction" value="4construction">Construction</option>
+                    <option class="text-trade" value="5trade">Trade</option>
+                    <option class="text-warfare" value="6warfare">Warfare</option>
+                    <option class="text-technology" value="7technology">Technology</option>
+                    <option class="text-imperial" value="8imperial">Imperial</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-dark px-0 -bottom">
+        <div class="col-2  m-2">
+            <button type="submit" class="btn btn-primary btn-lg">Start Game!</button>
+        </div>
+        <div class="col-2  m-2" >
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="true" id="clearconfirm" name="clearconfirm">
+                <label class="form-check-label" for="clearconfirm">Are you sure you want to clear the previous game state?</label>
+            </div>
+        </div>
+    </div>
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "game-base.html" %}
+{% block title %}Current Game{% endblock %}
+
+{% block content %}
+{% for game in game_state %}
+
+<!-- Players and Strats --> 
+<section class="bg-dark">
+<div class="row justify-content-between">
+    <div class="col">
+    <form method="post">
+        {% for player in players %}  <!-- Inserts rows of players in initiative order -->
+                <div class="row mx-1 p-1 rounded border border-3 border-light border-opacity-50">
+                    <div class="col-2 d-flex bg-{{ player.color }} justify-content-center bg-opacity-75 bg-gradient border border-2 border-light border-opacity-75 rounded p-2">
+                        <img class="img-fluid" src="{{'/static/races/' + player.race + '.png'}}" width="50" height="50">
+                    </div>
+                    <div class="col d-flex align-items-center bg-{{ player.color }} bg-opacity-25 bg-gradient border border-2 border-light border-opacity-75 text-light rounded ps-3">
+                        <h3 class="fw-light">{{player.name}}</h3>
+                    </div>
+                    <div class="col-md-8 d-flex bg-dark justify-content-center bg-opacity-50 bg-gradient border border-2 border-light border-opacity-75 rounded p-2">
+                        <div class="btn-group flex-wrap" role="group">
+                        {% for strat in strats %}
+                          <input type="radio" class="btn-check" name="{{player.seat}}" id="btnradio{{player.seat}}{{strat.id}}" value="{{strat.id}}" autocomplete="off">
+                          <label class="btn btn-outline-{{strat.name}}" for="btnradio{{player.seat}}{{strat.id}}">{{strat.name}}</label>
+                        {% endfor %}
+                        </div>
+                    </div>                
+                </div>
+        {% endfor %}
+        <div class="row mx-1 p-1 rounded border border-3 border-light border-opacity-50">
+            <div class="col d-flex bg-dark justify-content-center bg-opacity-75 bg-gradient border border-2 border-light border-opacity-75 rounded p-2">
+                <button type="submit" class="btn btn-primary btn-lg" name="submit_strats" value="submit_strats">Submit</button>
+            </div>
+        </div>
+    </form>
+    </div>
+
+
+</section>      
+{% endfor %}
+{% endblock %}

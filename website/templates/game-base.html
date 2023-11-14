@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TI4 Dashboard</title>
+    <!-- Font families -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link href="../static/main.min.css" rel="stylesheet">
+    <title>{% block title %}{% endblock %}</title>
+
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">TI4 Game Dashboard</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link {% if request.url_rule.endpoint == "views.home" %}active" aria-current="page{% endif %}" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if request.url_rule.endpoint == "game.current_game" %}active" aria-current="page{% endif %}" href="/current-game">Current Game</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if request.url_rule.endpoint == "game.create_game" %}active" aria-current="page{% endif %}" href="/create-game">Game Setup</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+<!-- Title Bar -->
+
+  <section class="bg-dark">
+  <div class="row rounded p-1">
+  
+      {% for game in game_state %}
+      <div class="col-8 justify-content-start rounded bg-primary bg-opacity-75 text-dark align-items-center d-flex border border-light border-2 border-opacity-75">
+      <h1 class="px-3 text-light display-3">Round {{game.round}}</h1>
+      </div>
+      {% endfor %}
+      <div class="d-flex col-4 rounded bg-dark text-light bg-opacity-50 fw-bolder border border-light border-2 border-opacity-75">
+          <div class="display-3 ms-auto">
+          <label id="hours">00</label>:<label id="mins">00</label>:<label id="secs">00</label>
+          <script>
+              var hoursLabel = document.getElementById("hours");
+              var minsLabel = document.getElementById("mins");
+              var secsLabel = document.getElementById("secs");
+              {% for game in game_state %}
+              var start = {{game.start}}
+              {% endfor %}
+              setInterval(timer, 1000);
+
+              function timer() {
+                  var endRaw = new Date()
+                  var end = endRaw.getTime()
+                  var duration = end - start
+                  var milliseconds = Math.floor((duration % 1000) / 100),
+                  seconds = Math.floor((duration / 1000) % 60),
+                  minutes = Math.floor((duration / (1000 * 60)) % 60),
+                  hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+                  hours = (hours < 10) ? "0" + hours : hours;
+                  minutes = (minutes < 10) ? "0" + minutes : minutes;
+                  seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+                  hoursLabel.innerHTML = hours
+                  minsLabel.innerHTML = minutes
+                  secsLabel.innerHTML = seconds 
+
+                  console.log(hours, minutes, seconds)
+
+              }
+          </script>
+          </div>
+      </div>
+  </div>
+  </section>
+    
+  {% block content %}  
+  {% endblock %}
+
+</body>
+</html>
