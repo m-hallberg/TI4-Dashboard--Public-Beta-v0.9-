@@ -28,5 +28,7 @@ A bit about this implementation:
     -flask-sqlalchemy 3.1.1
     -flask-login 0.6.2
 
+By default, the webapp will run on http://127.0.0.1:5000
+
 As of right now there is NO input validation. If you run into an error (it will be very obvious if there's an error), your best bet is to hit the back button and then refresh. If that doesn't 
 work, just create a new game. Input validation is coming very soon.
