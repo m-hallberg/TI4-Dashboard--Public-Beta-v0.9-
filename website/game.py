@@ -187,6 +187,9 @@ def speaker_test():
 
 @game.route('/current-game', methods=['GET', 'POST'])
 def current_game():
+    state_check = Games.query.filter(Games.id == 1).first()
+    if not state_check:
+        return redirect(url_for('game.create_game'))
     game_query = Games.query.filter(Games.id == 1)
     agenda_query = Agendas.query.filter(Agendas.game == 1).order_by(Agendas.id)
 
